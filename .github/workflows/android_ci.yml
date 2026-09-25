@@ -20,20 +20,21 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
-
-    - name: Validate Project Code
+    - name: Validate Code Structure
       run: |
-        echo "Kontrola kódové základny FocusAgent AI..."
+        echo "Kontrola souborů projektu..."
         ls -la
 
-    - name: Upload Application Package
+    - name: Bundle Project Source Code
+      run: |
+        mkdir -p package_output
+        cp *.kt package_output/ 2>/dev/null || true
+        cp *.xml package_output/ 2>/dev/null || true
+        cp *.md package_output/ 2>/dev/null || true
+
+    - name: Upload Application Artifact
       uses: actions/upload-artifact@v4
       with:
         name: focusagent-app-debug
-        path: |
-          *.kt
-          *.xml
-          *.md
-          
+        path: package_output/
+        
