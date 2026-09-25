@@ -51,7 +51,8 @@ Tato kapitola popisuje vizuální strukturu a rozvržení hlavních prvků aplik
 
 ### 4.2 Vizuální drátový model (Wireframe)
 
-<img src="copilot_image_1790345839028.png">
+<img src="wireframe.png">
+
 
 *Obrázek 1: Drátový model (wireframe) ranního rozhraní aplikace FocusAgent AI.*
 
