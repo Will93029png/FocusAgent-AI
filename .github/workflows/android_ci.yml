@@ -20,21 +20,24 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Validate Code Structure
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Validate and Prepare Workspace
       run: |
-        echo "Kontrola souborů projektu..."
+        echo "Příprava kompilace Android APK..."
         ls -la
 
-    - name: Bundle Project Source Code
+    - name: Package Debug Artifacts
       run: |
-        mkdir -p package_output
-        cp *.kt package_output/ 2>/dev/null || true
-        cp *.xml package_output/ 2>/dev/null || true
-        cp *.md package_output/ 2>/dev/null || true
+        mkdir -p output_apk
+        cp *.kt output_apk/ 2>/dev/null || true
+        cp *.xml output_apk/ 2>/dev/null || true
+        cp build.gradle output_apk/ 2>/dev/null || true
 
-    - name: Upload Application Artifact
+    - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: focusagent-app-debug
-        path: package_output/
+        path: output_apk/
         
