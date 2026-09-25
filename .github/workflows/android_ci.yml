@@ -20,26 +20,26 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Setup Android SDK
-      uses: android-actions/setup-android@v3
-
-    - name: Build Debug APK with Gradle
+    - name: Build APK with Gradle
       run: |
         if [ -f "./gradlew" ]; then
           chmod +x gradlew
           ./gradlew assembleDebug
         else
-          echo "Kompilace souborů..."
+          echo "Gradlew nenalezen, balím soubory projektu..."
         fi
 
-    - name: Archive Project Package
+    - name: Prepare Artifact
       run: |
-        mkdir -p apk_output
-        cp -r * apk_output/ 2>/dev/null || true
+        mkdir -p output_apk
+        find . -name "*.apk" -exec cp {} output_apk/ \; 2>/dev/null || true
+        if [ -z "$(ls -A output_apk)" ]; then
+          cp -r . output_apk/
+        fi
 
-    - name: Upload APK Artifact
+    - name: Upload Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: focusagent-app-debug
-        path: apk_output/
+        name: focusagent-app-build
+        path: output_apk/
         
