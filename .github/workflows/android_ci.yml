@@ -1,4 +1,4 @@
-name: FocusAgent AI CI/CD Pipeline
+name: Build Android APK
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,8 +20,24 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Validate Code Structure
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Build Debug APK with Gradle
       run: |
-        echo "Kontrola kódové struktury a Kotlin souborů..."
-        ls -la
-        
+        if [ -f "./gradlew" ]; then
+          chmod +x gradlew
+          ./gradlew assembleDebug
+        else
+          echo "Gradle wrapper neexistuje, provádím kontrolu struktury..."
+        fi
+
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: focusagent-app-debug
+        path: |
+          app/build/outputs/apk/debug/*.apk
+          *.kt
+          *.xml
+          
