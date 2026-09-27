@@ -30,3 +30,9 @@ Logiku projektu lze otestovat spuštěním souboru `MainSimulator.kt` v jakémko
 
 ---
 *Created by [Viliam Kašuka / William Williams](https://github.com/Will93029png)*
+
+## 💬 Community & Developer Feedback
+
+We are actively engaging with the developer ecosystem to optimize local SLM execution and NPU integration:
+* **Qualcomm Developer Network:** Check out our showcase and join the discussion on the [Qualcomm Community Forum](https://mysupport.qualcomm.com/supportforums/s/).
+* 
